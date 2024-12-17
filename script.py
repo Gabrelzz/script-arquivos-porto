@@ -1,4 +1,4 @@
-from renomeador import renomear
+from renomeador import renomear, arquivos_renomear
 import pyautogui
 import time
 import sys
@@ -25,9 +25,10 @@ def continuar():
     abrir_pasta()
     iniciar_script()
     f4()
+    encerrar_script()
 
 # Função botão NÃO
-def fechar_janela():
+def fechar_janela():    
     sys.exit()
 
 # Centralizar a janela
@@ -45,8 +46,17 @@ def abrir_pasta():
     pasta_script = os.path.dirname(os.path.abspath(__file__))
     subprocess.Popen(f'explorer {os.path.realpath(pasta_script)}')
     time.sleep(2)
+
 def f4():
     pyautogui.hotkey('alt', 'f4')
+
+def encerrar_script():
+    # Exibir mensagem ou notificação dizendo que o script já foi utilizado
+    root = tk.Tk()
+    root.withdraw()
+    messagebox.showinfo("Finalização do Script", "O script foi concluído com sucesso.")
+    # Encerrar script
+    sys.exit()
 
 ''' Criar a janela Tkinter '''
 root = tk.Tk()
@@ -74,7 +84,8 @@ botao_nao = tk.Button(botao_frame, text="Não", command=fechar_janela)
 botao_nao.pack(side=tk.RIGHT, padx=10)
 
 def iniciar_script():
-    for num in range (9):
+    i = 0
+    while i < len(arquivos_renomear):
 
         # Acessar um arquivo e ir para o próximo
         pyautogui.press('[')
@@ -127,7 +138,7 @@ def iniciar_script():
         # Fechar o Excel
         pyautogui.hotkey('alt', 'f4')
         time.sleep(1)
-
+        i += 1
 
 # Mensagem para exibir mostrando que foi finalizado o script!
 
